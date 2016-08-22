@@ -22,8 +22,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  * @author wmfsystem
  */
 @RestController
-@RequestMapping("/livros")
+@RequestMapping(LivrosResources.PATH)
 public class LivrosResources {
+
+    protected static final String PATH = "/livros";
 
     @Autowired
     private LivroService livroService;
@@ -39,7 +41,7 @@ public class LivrosResources {
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(livro.getId()).toUri();
-
+//        ResponseEntity.created(new URI(PATH + "/" + livro.getId())).body(livro);
         return ResponseEntity.created(uri).build();
     }
 
