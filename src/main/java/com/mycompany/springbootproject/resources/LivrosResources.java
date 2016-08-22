@@ -3,6 +3,7 @@
  */
 package com.mycompany.springbootproject.resources;
 
+import com.mycompany.springbootproject.domain.Comentario;
 import com.mycompany.springbootproject.domain.Livro;
 import com.mycompany.springbootproject.services.LivroService;
 import com.mycompany.springbootproject.services.exceptions.LivroNaoEncontradoException;
@@ -63,6 +64,20 @@ public class LivrosResources {
         livroService.atualiza(livro);
         livroService.atualiza(livro);
         return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/{id}/comentarios", method = RequestMethod.POST)
+    public ResponseEntity<Void> adicionarComentario(@PathVariable("id") Long livroId, @RequestBody Comentario comentario) {
+        livroService.salvarComentario(livroId, comentario);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
+        return ResponseEntity.created(uri).build();
+    }
+    
+    @RequestMapping(value = "/{id}/comentarios", method = RequestMethod.GET)
+    public ResponseEntity<List<Comentario>> listarComentarios(@PathVariable Long livroId) {
+        List<Comentario> comentarios = livroService.listarComentarios(livroId);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(comentarios);
     }
 
 }

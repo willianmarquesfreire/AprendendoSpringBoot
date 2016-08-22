@@ -11,93 +11,95 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Livro {
 
-	@JsonInclude(Include.NON_NULL)
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	private String nome;
-	
-	@JsonInclude(Include.NON_NULL)
-	private Date publicacao;
-	
-	@JsonInclude(Include.NON_NULL)
-	private String editora;
-	
-	@JsonInclude(Include.NON_NULL)
-	private String resumo;
-	
-	@JsonInclude(Include.NON_NULL)
-	@Transient
-	private List<Comentario> comentarios;
-	
-	@JsonInclude(Include.NON_NULL)
-	private String autor;
-	
-	public Livro() {}
-	
-	public Livro(String nome) {
-		this.nome = nome;
-	}
+    @JsonInclude(Include.NON_NULL)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	public Long getId() {
-		return id;
-	}
+    private String nome;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @JsonInclude(Include.NON_NULL)
+    private Date publicacao;
 
-	public String getNome() {
-		return nome;
-	}
+    @JsonInclude(Include.NON_NULL)
+    private String editora;
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    @JsonInclude(Include.NON_NULL)
+    private String resumo;
 
-	public Date getPublicacao() {
-		return publicacao;
-	}
+    @JsonInclude(Include.NON_NULL)
+    @OneToMany(mappedBy = "livro")
+    private List<Comentario> comentarios;
 
-	public void setPublicacao(Date publicacao) {
-		this.publicacao = publicacao;
-	}
+    @JsonInclude(Include.NON_NULL)
+    private String autor;
 
-	public String getEditora() {
-		return editora;
-	}
+    public Livro() {
+    }
 
-	public void setEditora(String editora) {
-		this.editora = editora;
-	}
+    public Livro(String nome) {
+        this.nome = nome;
+    }
 
-	public String getResumo() {
-		return resumo;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setResumo(String resumo) {
-		this.resumo = resumo;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public List<Comentario> getComentarios() {
-		return comentarios;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public void setComentarios(List<Comentario> comentarios) {
-		this.comentarios = comentarios;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public String getAutor() {
-		return autor;
-	}
+    public Date getPublicacao() {
+        return publicacao;
+    }
 
-	public void setAutor(String autor) {
-		this.autor = autor;
-	}
-	
+    public void setPublicacao(Date publicacao) {
+        this.publicacao = publicacao;
+    }
+
+    public String getEditora() {
+        return editora;
+    }
+
+    public void setEditora(String editora) {
+        this.editora = editora;
+    }
+
+    public String getResumo() {
+        return resumo;
+    }
+
+    public void setResumo(String resumo) {
+        this.resumo = resumo;
+    }
+
+    public List<Comentario> getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(List<Comentario> comentarios) {
+        this.comentarios = comentarios;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
 }
