@@ -83,21 +83,4 @@ public class LivrosResources {
         return ResponseEntity.status(HttpStatus.OK).body(comentarios);
     }
 
-    @RequestMapping(value = "/boleto", method = RequestMethod.GET)
-    public ResponseEntity<byte[]> buscar() {
-        GeraBoletoTeste boletoTeste = new GeraBoletoTeste();
-        byte[] file = boletoTeste.arquivo();
-        HttpHeaders headers = new HttpHeaders();
-
-        headers.setContentType(MediaType.parseMediaType("application/pdf"));
-        String filename = "pdf1.pdf";
-
-        headers.add("content-disposition", "inline;filename=" + filename);
-
-        headers.setContentDispositionFormData(filename, filename);
-        headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
-        ResponseEntity<byte[]> response = new ResponseEntity<byte[]>(file, headers, HttpStatus.OK);
-        return response;
-    }
-
 }
