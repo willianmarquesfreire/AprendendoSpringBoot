@@ -1,5 +1,6 @@
 package com.mycompany.springbootproject.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +15,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Livro {
@@ -23,15 +26,20 @@ public class Livro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty(message = "O campo nome não pode ser vazio!")
     private String nome;
 
     @JsonInclude(Include.NON_NULL)
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    @NotEmpty(message = "O campo publicação não pode ser vazio!")
     private Date publicacao;
 
     @JsonInclude(Include.NON_NULL)
     private String editora;
 
     @JsonInclude(Include.NON_NULL)
+    @NotEmpty(message = "O resumo deve ser preenchido!")
+    @Size(max = 1500, message = "O resumo não pode conter mais de 1500 caracteres!")
     private String resumo;
 
     @JsonInclude(Include.NON_NULL)

@@ -5,6 +5,7 @@ import com.mycompany.springbootproject.services.exceptions.AutorExistenteExcepti
 import com.mycompany.springbootproject.services.exceptions.AutorNaoEncontradoException;
 import com.mycompany.springbootproject.services.exceptions.LivroNaoEncontradoException;
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -38,7 +39,7 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(erro);
 
     }
-    
+
     @ExceptionHandler(AutorNaoEncontradoException.class)
     public ResponseEntity<DetalhesErro> handleAutorNaoEncontradoException(AutorExistenteException e, HttpServletRequest request) {
 
@@ -50,6 +51,18 @@ public class ResourceExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
 
+    }
+    
+    @ExceptionHandler(DataIntegrityViolationException.class) 
+    public ResponseEntity<DetalhesErro> handleDataIntegrityException(DataIntegrityViolationException e, HttpServletRequest request) {
+        
+        DetalhesErro erro = new DetalhesErro();
+        erro.setTitulo("Requisição Inválida!");
+        erro.setStatus(400l);
+        erro.setMensagemDesenvolvedor("http://erros.socialbooks.com/400");
+        erro.setTimestamp(System.currentTimeMillis());
+        
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
     }
 
 }

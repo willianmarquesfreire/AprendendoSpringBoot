@@ -10,6 +10,7 @@ import com.mycompany.springbootproject.services.LivroService;
 import java.io.File;
 import java.net.URI;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -40,7 +41,7 @@ public class LivrosResources {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> Salvar(@RequestBody Livro livro) {
+    public ResponseEntity<Void> Salvar(@Valid @RequestBody Livro livro) {
         livro = livroService.salvar(livro);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()

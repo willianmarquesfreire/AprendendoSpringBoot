@@ -1,6 +1,9 @@
 package com.mycompany.springbootproject.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Comentario {
@@ -17,15 +22,22 @@ public class Comentario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty(message = "O comentario deve ser preenchido!")
+    @Size(max = 1500, message = "O comentário não pode conter mais de 1500 caracteres!")
+    @JsonProperty("comentario")
     private String texto;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String usuario;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Date data;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "livro_id")
     @JsonIgnore
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Livro livro;
 
     public Comentario() {

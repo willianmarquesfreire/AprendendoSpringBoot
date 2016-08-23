@@ -5,7 +5,9 @@
  */
 package com.mycompany.springbootproject.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
@@ -27,11 +30,16 @@ public class Autor implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty(message = "O campo nome não pode ser vazio!")
     private String nome;
 
     @Temporal(javax.persistence.TemporalType.DATE)
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    @NotEmpty(message = "O campo nascimento é obrigatório!")
     private Date nascimento;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @NotEmpty(message = "O campo nacionalidade é obrigatório!")
     private String nacionalidade;
 
     @OneToMany(mappedBy = "autor")
