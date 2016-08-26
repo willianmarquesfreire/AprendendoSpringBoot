@@ -24,7 +24,7 @@ public class AutoresResource {
     private AutorService autorService;
     
     // XML : Alterar header -> Accepty -> XML
-    @RequestMapping(method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @RequestMapping(method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<List<Autor>> listar() {
         List<Autor> autores = autorService.listar();
         return ResponseEntity.status(HttpStatus.OK).body(autorService.listar());
