@@ -42,9 +42,9 @@ public class Autor implements Serializable {
     @NotEmpty(message = "O campo nacionalidade é obrigatório!")
     private String nacionalidade;
 
-    @OneToMany(mappedBy = "autor")
-    @JsonIgnore
-    private List<Livro> livros;
+//    @OneToMany(mappedBy = "autor")
+//    @JsonIgnore
+//    private List<Livro> livros;
 
     public Autor() {
     }
@@ -81,12 +81,5 @@ public class Autor implements Serializable {
         this.nacionalidade = nacionalidade;
     }
 
-    public List<Livro> getLivros() {
-        return livros;
-    }
-
-    public void setLivros(List<Livro> livros) {
-        this.livros = livros;
-    }
 
 }
