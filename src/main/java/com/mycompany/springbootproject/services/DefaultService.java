@@ -5,12 +5,14 @@
  */
 package com.mycompany.springbootproject.services;
 
+import com.mycompany.springbootproject.domain.DefaultDomain;
 import com.mycompany.springbootproject.domain.SearchResult;
 import com.mycompany.springbootproject.repository.DefaultRepository;
 import java.io.Serializable;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,25 +21,48 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Scope(value = "prototype")
-public abstract class DefaultService<T extends DefaultRepository> {
+public abstract class DefaultService<T extends DefaultRepository, E extends DefaultDomain> {
     
     @Autowired
     public T repository;
     
-    public List<Object> listAll() {
+    public List<E> listAll() {
         return repository.findAll();
     }
     
-    public void save(Object obj) {
-        repository.save(obj);
+    public Object save(E obj) {
+        return repository.save(obj);
     }
     
     public Object findOne(Serializable id) {
-        return repository.findOne(id);
+        Object object = repository.findOne(id);
+        
+        if (object == null) {
+            throw new RuntimeException("Não encontrado");
+        }
+        
+        return object;
     }
     //@TODO
     public SearchResult<Object> searchResult() {
         return new SearchResult();
+    }
+    
+    public void delete(Serializable id) {
+        try {
+            repository.delete(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new RuntimeException("Erro ao deletar!");
+        }
+    }
+    
+    public void update(E object) {
+        verifyExists(object);
+        repository.save(object);
+    }
+    
+    public void verifyExists(E object) {
+        findOne(object.getId());
     }
     
 }

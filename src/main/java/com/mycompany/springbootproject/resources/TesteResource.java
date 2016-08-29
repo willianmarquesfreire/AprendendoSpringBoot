@@ -21,20 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/teste")
-public class TesteResource extends DefaultResource<TesteService> {
-    
-    TesteService t;
-
-    
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<Object>> listar() {
-        return ResponseEntity.status(HttpStatus.OK).body(service.listAll());
-    }
-    
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> Salvar(@RequestBody Teste teste) {
-        service.save(teste);
-        return ResponseEntity.ok().build();
-    }
+public class TesteResource extends DefaultResource<TesteService, Teste, Long> {
 
 }

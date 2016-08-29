@@ -14,16 +14,16 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
  *
  * @author willian
  */
-@Component
+//@Component
 public class MyInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String token = request.getParameter("token");
-        System.out.println("entroueeee");
-        if (token.equals("wmf")) {
+//        String token = request.getParameter("token");
+//        System.out.println("entroueeee");
+//        if (token.equals("wmf")) {
             return super.preHandle(request, response, handler); 
-        }
-        return false;
+//        }
+//        return false;
     }
 }

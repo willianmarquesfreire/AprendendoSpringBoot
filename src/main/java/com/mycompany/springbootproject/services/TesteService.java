@@ -5,6 +5,7 @@
  */
 package com.mycompany.springbootproject.services;
 
+import com.mycompany.springbootproject.domain.Teste;
 import com.mycompany.springbootproject.repository.TesteRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,6 @@ import org.springframework.stereotype.Service;
  * @author wmfsystem
  */
 @Service
-public class TesteService extends DefaultService<TesteRepository>{
+public class TesteService extends DefaultService<TesteRepository, Teste>{
     
 }

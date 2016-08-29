@@ -5,6 +5,7 @@
  */
 package com.mycompany.springbootproject.repository;
 
+import com.mycompany.springbootproject.domain.DefaultDomain;
 import java.io.Serializable;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,6 +19,6 @@ import org.springframework.stereotype.Component;
  * @param <ID> Identificação
  */
 @NoRepositoryBean
-public interface DefaultRepository<T extends Object, ID extends Serializable> extends JpaRepository<T, ID> {
+public interface DefaultRepository<T extends DefaultDomain, ID extends Serializable> extends JpaRepository<T, ID> {
    
 }
