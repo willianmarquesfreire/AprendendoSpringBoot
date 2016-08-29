@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.springbootproject.resources;
 
 import com.mycompany.springbootproject.domain.DefaultDomain;
-import com.mycompany.springbootproject.domain.Response;
 import com.mycompany.springbootproject.services.DefaultService;
 import java.io.Serializable;
 import java.net.URI;
@@ -27,7 +21,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 /**
  *
  * @author wmfsystem
- * @param <T>
+ * @param <T> Service Utilizado no Resource
+ * @param <E> Domain  Utilizado no Resource
+ * @param <D> Tipo do ID
  */
 @RestController
 public class DefaultResource<T extends DefaultService, E extends DefaultDomain, D extends Serializable> {

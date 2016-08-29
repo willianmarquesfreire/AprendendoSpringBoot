@@ -57,7 +57,7 @@
             <artifactId>jrimum-bopepo</artifactId>
             <version>0.2.3-SNAPSHOT</version>
         </dependency>
-<!--        <dependency>
+        <!--        <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-xml</artifactId>
         </dependency>-->
@@ -74,6 +74,11 @@
             <groupId>org.bytedeco</groupId>
             <artifactId>javacv</artifactId>
             <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>4.3.2.RELEASE</version>
         </dependency>
     </dependencies>
     

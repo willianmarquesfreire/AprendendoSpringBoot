@@ -6,16 +6,9 @@
 package com.mycompany.springbootproject.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -24,11 +17,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author wmfsystem
  */
 @Entity
-public class Autor implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Autor extends DefaultDomain<Long> {
 
     @NotEmpty(message = "O campo nome não pode ser vazio!")
     private String nome;
@@ -47,14 +36,6 @@ public class Autor implements Serializable {
 //    private List<Livro> livros;
 
     public Autor() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNome() {

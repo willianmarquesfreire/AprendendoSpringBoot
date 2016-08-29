@@ -9,6 +9,7 @@ import com.mycompany.springbootproject.domain.DefaultDomain;
 import com.mycompany.springbootproject.domain.SearchResult;
 import com.mycompany.springbootproject.repository.DefaultRepository;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -18,6 +19,8 @@ import org.springframework.stereotype.Service;
 /**
  *
  * @author wmfsystem
+ * @param <T> Repositório do Service
+ * @param <E> Domain do Service
  */
 @Service
 @Scope(value = "prototype")
@@ -31,6 +34,8 @@ public abstract class DefaultService<T extends DefaultRepository, E extends Defa
     }
     
     public Object save(E obj) {
+        obj.setRegistration(new Date(System.currentTimeMillis()));
+//        obj.setOi(oi);
         return repository.save(obj);
     }
     
