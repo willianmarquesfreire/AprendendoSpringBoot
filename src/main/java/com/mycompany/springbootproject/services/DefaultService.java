@@ -8,6 +8,8 @@ package com.mycompany.springbootproject.services;
 import com.mycompany.springbootproject.domain.DefaultDomain;
 import com.mycompany.springbootproject.domain.SearchResult;
 import com.mycompany.springbootproject.repository.DefaultRepository;
+import com.mycompany.springbootproject.services.exceptions.DomainExistenceException;
+import com.mycompany.springbootproject.services.exceptions.DomainNotFoundException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -34,16 +36,23 @@ public abstract class DefaultService<T extends DefaultRepository, E extends Defa
     }
     
     public Object save(E obj) {
+        if (obj.getId() != null) {
+            E verifyId = (E) repository.findOne(obj.getId());
+            
+            if (verifyId != null) {
+                throw new DomainExistenceException("This Domain exists!");
+            }
+        }
         obj.setRegistration(new Date(System.currentTimeMillis()));
-//        obj.setOi(oi);
+        obj.setOi("1.");
         return repository.save(obj);
     }
     
     public Object findOne(Serializable id) {
-        Object object = repository.findOne(id);
+        E object = (E) repository.findOne(id);
         
         if (object == null) {
-            throw new RuntimeException("Não encontrado");
+            throw new DomainNotFoundException("Domain is not found!");
         }
         
         return object;

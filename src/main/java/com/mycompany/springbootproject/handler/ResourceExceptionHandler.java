@@ -1,9 +1,8 @@
 package com.mycompany.springbootproject.handler;
 
-import com.mycompany.springbootproject.domain.DetalhesErro;
-import com.mycompany.springbootproject.services.exceptions.AutorExistenteException;
-import com.mycompany.springbootproject.services.exceptions.AutorNaoEncontradoException;
-import com.mycompany.springbootproject.services.exceptions.LivroNaoEncontradoException;
+import com.mycompany.springbootproject.domain.ErrorDetails;
+import com.mycompany.springbootproject.services.exceptions.DomainExistenceException;
+import com.mycompany.springbootproject.services.exceptions.DomainNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -14,54 +13,41 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ResourceExceptionHandler {
 
-    @ExceptionHandler(LivroNaoEncontradoException.class)
-    public ResponseEntity<DetalhesErro>
-            handleLivroNaoEncontadoException(LivroNaoEncontradoException e,
+    @ExceptionHandler(DomainNotFoundException.class)
+    public ResponseEntity<ErrorDetails>
+            handleDomainNotFoundException(DomainNotFoundException e,
                     HttpServletRequest request) {
-        DetalhesErro erro = new DetalhesErro();
+        ErrorDetails erro = new ErrorDetails();
         erro.setStatus(404l);
-        erro.setTitulo("O livro não pôde ser encontrado!");
-        erro.setMensagemDesenvolvedor("http://error.socialbooks.com/404");
+        erro.setTitle("Domain Not Found | Domínio não encontrado!");
+        erro.setDeveloperMessage("http://error.socialbooks.com/404");
         erro.setTimestamp(System.currentTimeMillis());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
     }
 
-    @ExceptionHandler(AutorExistenteException.class)
-    public ResponseEntity<DetalhesErro> handleAutorExistenteException(AutorExistenteException e, HttpServletRequest request) {
+    @ExceptionHandler(DomainExistenceException.class)
+    public ResponseEntity<ErrorDetails> handleDomainExistenceException(DomainExistenceException e, HttpServletRequest request) {
 
-        DetalhesErro erro = new DetalhesErro();
+        ErrorDetails erro = new ErrorDetails();
         erro.setStatus(409l);
-        erro.setTitulo("Autor já existente!");
-        erro.setMensagemDesenvolvedor("http://erros.socialbooks.com/409");
+        erro.setTitle("Domain has exists | Domínio já existe!");
+        erro.setDeveloperMessage("http://erros.socialbooks.com/409");
         erro.setTimestamp(System.currentTimeMillis());
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(erro);
 
     }
 
-    @ExceptionHandler(AutorNaoEncontradoException.class)
-    public ResponseEntity<DetalhesErro> handleAutorNaoEncontradoException(AutorExistenteException e, HttpServletRequest request) {
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ErrorDetails> handleDataIntegrityException(DataIntegrityViolationException e, HttpServletRequest request) {
 
-        DetalhesErro erro = new DetalhesErro();
-        erro.setStatus(404l);
-        erro.setTitulo("O autor não pôde ser encontrado!");
-        erro.setMensagemDesenvolvedor("http://erros.socialbooks.com/409");
-        erro.setTimestamp(System.currentTimeMillis());
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
-
-    }
-    
-    @ExceptionHandler(DataIntegrityViolationException.class) 
-    public ResponseEntity<DetalhesErro> handleDataIntegrityException(DataIntegrityViolationException e, HttpServletRequest request) {
-        
-        DetalhesErro erro = new DetalhesErro();
-        erro.setTitulo("Requisição Inválida!");
+        ErrorDetails erro = new ErrorDetails();
+        erro.setTitle("Invalid Request | Requisição Inválida!");
         erro.setStatus(400l);
-        erro.setMensagemDesenvolvedor("http://erros.socialbooks.com/400");
+        erro.setDeveloperMessage("http://erros.socialbooks.com/400");
         erro.setTimestamp(System.currentTimeMillis());
-        
+
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
     }
 

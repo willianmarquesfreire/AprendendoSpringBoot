@@ -24,15 +24,9 @@ public class SpringBootProject {
 //		dataSource.setPassword("");
 //		return dataSource;
 //	
-    
+
     
     public static void main(String[] args) {
-//        RestTemplate restTemplate = new RestTemplate();
-//        RequestEntity<Void> request = 
-//                RequestEntity.get(URI.create("http://google.com.br")).build();
-        
-//        ResponseEntity<Boolean> response = restTemplate.exchange(request, Boolean.class);
-//        System.out.println("------> " + response);
         SpringApplication.run(SpringBootProject.class, args);
     }
 

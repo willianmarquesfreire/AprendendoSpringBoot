@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author wmfsystem
  */
-//@RestController
-//@RequestMapping("/security")
+@RestController
+@RequestMapping("/security")
 public class Security {
     
-//    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-//    public String access(@PathVariable Long id) {
-//        return "true";
-//    }
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public String access(@PathVariable Long id) {
+        return "true";
+    }
     
 }
