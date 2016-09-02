@@ -80,6 +80,12 @@
             <artifactId>spring-web</artifactId>
             <version>4.3.2.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>org.bytedeco.javacpp-presets</groupId>
+            <artifactId>ffmpeg</artifactId>
+            <version>3.0.2-1.2</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
     
     
